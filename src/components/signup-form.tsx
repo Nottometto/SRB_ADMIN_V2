@@ -1,3 +1,4 @@
+"use client"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,17 +11,45 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
-import { registerEmail } from "@/lib/auth-server"
+
+import * as z from "zod"; 
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+import { getSignUpEmail } from "@/lib/auth-server"
+
+const signupSchema = z.object({
+  name: z.string().min(3, { error: "Username must be at least 3 characters long." }),
+  email: z.email({ error: "Email is required." }),
+  password: z.string().min(8, { error: "Password must be at least 8 characters long." }),
+  confirmPassword: z.string(),
+}).refine(function(data){ return data.password === data.confirmPassword}, {error: "Passwords do not match.",path: ["confirmPassword"],})
+
+type SignupFormValue = z.infer<typeof signupSchema>
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { register, handleSubmit,setError, formState: { errors, isSubmitting }} = useForm<SignupFormValue>({resolver: zodResolver(signupSchema),})
+  
+    const onSubmitRegister = async (data: SignupFormValue) => {
+      const formData = new FormData()
+      formData.append("name", data.name)
+      formData.append("email", data.email)
+      formData.append("password", data.password)
+      formData.append("confirmPassword", data.confirmPassword)
+      const result = await getSignUpEmail(formData)
+      if (result.error){
+        setError("root", { message: result.error })
+      }
+    }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="p-6 md:p-8" action={registerEmail}>
+          <form className="p-6 md:p-8" onSubmit={handleSubmit(onSubmitRegister)}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1 className="text-2xl font-bold">Create your account</h1>
@@ -31,22 +60,22 @@ export function SignupForm({
               <Field>
                 <FieldLabel htmlFor="name">Username</FieldLabel>
                 <Input
-                  name="name"
                   id="name"
                   type="name"
                   placeholder="John"
-                  required
+                  {...register("name")}
                 />
+                {errors.name && (<p className="text-sm text-destructive">{errors.name.message}</p>)}
               </Field>
               <Field>
                 <FieldLabel htmlFor="email">Email</FieldLabel>
                 <Input
-                  name="email"
                   id="email"
                   type="email"
                   placeholder="john@example.com"
-                  required
+                  {...register("email")}
                 />
+                {errors.email && (<p className="text-sm text-destructive">{errors.email.message}</p>)}
                 <FieldDescription>
                   We&apos;ll use this to contact you. We will not share your
                   email with anyone else.
@@ -56,13 +85,15 @@ export function SignupForm({
                 <Field className="grid grid-cols-2 gap-4">
                   <Field>
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input name="password" id="password" type="password" required />
+                    <Input id="password" type="password" {...register("password")}/>
+                    {errors.password && (<p className="text-sm text-destructive">{errors.password.message}</p>)}
                   </Field>
                   <Field>
                     <FieldLabel htmlFor="confirm-password">
                       Confirm Password
                     </FieldLabel>
-                    <Input name="confirm-password" id="confirm-password" type="password" required />
+                    <Input id="confirm-password" type="password" {...register("confirmPassword")}/>
+                    {errors.confirmPassword && (<p className="text-sm text-destructive">{errors.confirmPassword.message}</p>)}
                   </Field>
                 </Field>
                 <FieldDescription>
@@ -70,7 +101,10 @@ export function SignupForm({
                 </FieldDescription>
               </Field>
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Signing up..." : "Create Account"}
+                </Button>
+                {errors.root && (<p className="text-sm text-destructive text-center">{errors.root.message}</p>)}
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
                 Or continue with
