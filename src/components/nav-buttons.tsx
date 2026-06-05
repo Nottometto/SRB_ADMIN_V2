@@ -1,16 +1,14 @@
 import Link from "next/link";
-import { unstable_noStore } from "next/cache"
-
 import { Button } from "@/components/ui/button"
 import { getSignOut } from "@/lib/auth-server";
 import { getSession } from "@/lib/auth-server";
-
+import { RedirectPopover } from "@/components/redirect-popup"
 export async function ButtonSessions(){
-    unstable_noStore()
     const session = await getSession()
+    
     if (!session){
         return(
-            <div>
+            <div className="flex items-center gap-2">
                 <Button asChild>
                     <Link href="/signup">Sign Up</Link>
                 </Button>
@@ -21,8 +19,9 @@ export async function ButtonSessions(){
         )
     }
     return(
-        <div>
-            <p>UserId: {session.user.id}</p>
+        <div className="flex items-center gap-2">
+            <RedirectPopover isAdmin={session.user.admin}/>
+            <p>Username: {session.user.name}</p>
             <form action={getSignOut}>
                 <Button type="submit" variant="secondary">
                     Sign Out

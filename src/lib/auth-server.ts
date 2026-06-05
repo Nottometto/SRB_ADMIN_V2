@@ -81,12 +81,7 @@ export async function getSignInEmail(formData:FormData){
         return { error: "Incorrect email or password." }
     }
 
-    const session = await getSession()
-    if (session?.user?.admin === true){
-        redirect("/pages")
-    }
-
-    redirect("https://tp-cen-srb.github.io/RecycleTP/")
+    redirect("/")
     
 }
 
@@ -94,7 +89,6 @@ export async function getSignOut(){
     await auth.api.signOut({
         headers: await headers(),
     });
-
     redirect("/")
 }
 

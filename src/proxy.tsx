@@ -7,13 +7,17 @@ export async function proxy(request: NextRequest) {
         headers: await headers()
     })
 
-    if(!session) {
+    if(!session){
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    return NextResponse.next();
+    if (session.user.admin === true) {
+        return NextResponse.next();
+    }
+
+    return NextResponse.redirect(new URL("/", request.url));
 }
 
 export const config = {
-  matcher: ["/admin/:path*"], // Specify the routes the middleware applies to
+  matcher: ["/admin/:path*"],
 };
