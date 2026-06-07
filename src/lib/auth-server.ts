@@ -79,10 +79,8 @@ export async function getSignInEmail(formData:FormData){
     }
     catch {
         return { error: "Incorrect email or password." }
-    }
-
+    }    
     redirect("/")
-    
 }
 
 export async function getSignOut(){
@@ -91,6 +89,3 @@ export async function getSignOut(){
     });
     redirect("/")
 }
-
-
-

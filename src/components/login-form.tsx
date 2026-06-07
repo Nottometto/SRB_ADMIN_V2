@@ -35,6 +35,7 @@ export function LoginForm({
     const formData = new FormData()
     formData.append("email", data.email)
     formData.append("password", data.password)
+    
     const result = await getSignInEmail(formData)
     if (result.error){
       setError("root", { message: result.error })

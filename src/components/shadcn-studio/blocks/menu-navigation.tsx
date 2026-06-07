@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react'
 
+import Link from 'next/link'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
@@ -45,7 +46,7 @@ const MenuNavigation = ({ navigationData, className }: MenuNavigationProps) => {
             // Root link item
             return (
               <NavigationMenuItem key={navItem.title}>
-                <NavigationMenuLink
+                <Link
                   href={navItem.href}
                   className={cn(
                     navigationMenuTriggerStyle(),
@@ -53,7 +54,7 @@ const MenuNavigation = ({ navigationData, className }: MenuNavigationProps) => {
                   )}
                 >
                   {navItem.title}
-                </NavigationMenuLink>
+                </Link>
               </NavigationMenuItem>
             )
           }
@@ -68,9 +69,9 @@ const MenuNavigation = ({ navigationData, className }: MenuNavigationProps) => {
                 <ul className='grid w-38 gap-4'>
                   <li>
                     {navItem.items?.map(item => (
-                      <NavigationMenuLink key={item.title} href={item.href}>
+                      <Link key={item.title} href={item.href}>
                         {item.title}
-                      </NavigationMenuLink>
+                      </Link>
                     ))}
                   </li>
                 </ul>

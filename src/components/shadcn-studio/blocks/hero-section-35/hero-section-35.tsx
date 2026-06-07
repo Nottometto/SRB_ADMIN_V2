@@ -1,10 +1,11 @@
+"use client"
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
 import { CalendarDaysIcon, ArrowUpRightIcon } from "lucide-react"
-
-export type BlogData = {
+import Image from 'next/image'
+import Link from 'next/link'
+interface BlogData {
   img: string
   date: string
   blogTitle: string
@@ -16,48 +17,63 @@ export type BlogData = {
   categoryLink: string
 }
 
-const HeroSection = ({ blogdata }: { blogdata: BlogData[] }) => {
+const blogData: BlogData [] = [
+  {
+    img: '/recycling.png',
+    date: 'January 20, 2026',
+    blogTitle: 'Build with Empathy for Better User Outcomes',
+    description: 'Understand user needs to create intuitive and lovable experiences.',
+    author: 'Allen Reilly',
+    badge: 'UI',
+    authorLink: '#',
+    blogLink: '#',
+    categoryLink: '#'
+  },
+  {
+    img: '/recycling.png',
+    date: 'May 20, 2025',
+    blogTitle: 'Write Code That Scales with Your Product',
+    description: 'Structure your projects for easier updates, faster growth, and bugs.',
+    author: 'Sara Wilkerson',
+    badge: 'Coding',
+    authorLink: '#',
+    blogLink: '#',
+    categoryLink: '#'
+  }
+]
+
+export default function HeroSection(){
   return (
     <section className='bg-muted pt-16 pb-12 sm:pb-16 lg:pb-24'>
       <div className='mx-auto flex h-full max-w-7xl flex-col gap-16 px-4 sm:px-6 lg:px-8'>
         {/* Hero Header */}
         <div className='flex max-w-4xl flex-col items-center gap-4 self-center text-center'>
           <Badge variant='outline' className='h-auto text-sm'>
-            Trusted by 1,000,000+ professionals
+            Next-Gen Smart Recycling
           </Badge>
           <h1 className='text-3xl leading-[1.29167] font-semibold text-balance sm:text-4xl lg:text-5xl'>
-            Build Better Products with Insights that Drive Real Impact.
+            AIRS: AI-Powered Recycling System for Sustainability
           </h1>
           <p className='text-muted-foreground mx-auto max-w-2xl text-xl'>
-            Learn how to design, develop, launch, and grow digital products through practical knowledge and proven
-            frameworks.
+              Meet the IoT recycling system that turns waste into rewards.
+              Powered by AI, this smart bin automatically identifies materials,
+              opens the correct bin, and calculates the weight into points that can be credited to your account.
           </p>
-          <div className='z-10 flex items-center gap-3 p-2'>
-            <Input
-              type='email'
-              placeholder='Your email'
-              required
-              className='bg-background h-10 rounded-lg px-3 sm:w-70'
-            />
-            <Button
-              className='relative h-10 w-fit overflow-hidden rounded-lg px-6 text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-size-[250%_250%,100%_100%] before:bg-position-[200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-position-[-100%_0,0_0] dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
-              asChild
-            >
-              <a href='#'>Subscribe</a>
-            </Button>
-          </div>
         </div>
 
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
-          {blogdata.map((item, index) => (
+          {blogData.map((item, index) => (
             <Card key={`${item.author}-${index}`} className='group py-6 shadow-none'>
               <CardContent className='grid grid-cols-1 gap-6 px-6 xl:grid-cols-2'>
                 <div>
-                  <div className='h-59.5 w-full overflow-hidden rounded-lg'>
-                    <img
+                  <div className='relative h-60 w-full overflow-hidden rounded-lg'>
+                    <Image
                       src={item.img}
                       alt={item.author}
-                      className='w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                      fill
+                      priority
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className='object-cover transition-transform duration-300 group-hover:scale-105'
                     />
                   </div>
                 </div>
@@ -101,5 +117,3 @@ const HeroSection = ({ blogdata }: { blogdata: BlogData[] }) => {
     </section>
   )
 }
-
-export default HeroSection

@@ -9,10 +9,10 @@ export async function ButtonSessions(){
     if (!session){
         return(
             <div className="flex items-center gap-2">
-                <Button asChild>
+                <Button asChild variant="outline">
                     <Link href="/signup">Sign Up</Link>
                 </Button>
-                <Button asChild variant="outline">
+                <Button asChild >
                     <Link href="/login">Login</Link>
                 </Button>
             </div>
@@ -23,7 +23,7 @@ export async function ButtonSessions(){
             <RedirectPopover isAdmin={session.user.admin}/>
             <p>Username: {session.user.name}</p>
             <form action={getSignOut}>
-                <Button type="submit" variant="secondary">
+                <Button type="submit" variant="destructive">
                     Sign Out
                 </Button>
             </form>

@@ -15,7 +15,7 @@ export function RedirectPopover({ isAdmin }: { isAdmin: boolean }) {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" size="icon">
-            <Smartphone className="h-4 w-4" />
+            <Smartphone className="size-4" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end">

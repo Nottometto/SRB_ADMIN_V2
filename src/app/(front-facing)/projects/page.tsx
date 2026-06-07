@@ -1,5 +1,7 @@
+import { EmptyInputGroup } from "@/components/empty-content"
+
 export default async function Projects() {
   return (
-    <p>Projects</p>
+    <EmptyInputGroup />
   )
 }
