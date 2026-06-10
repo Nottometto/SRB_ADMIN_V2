@@ -79,7 +79,16 @@ export async function getSignInEmail(formData:FormData){
     }
     catch {
         return { error: "Incorrect email or password." }
-    }    
+    }
+
+    if (existingUser.localBin === true) {
+        redirect("/local/video");
+    }
+    
+    if (existingUser.admin === true) {
+        redirect("/admin");
+    }
+
     redirect("/")
 }
 
@@ -87,5 +96,5 @@ export async function getSignOut(){
     await auth.api.signOut({
         headers: await headers(),
     });
-    redirect("/")
+    redirect("/login")
 }

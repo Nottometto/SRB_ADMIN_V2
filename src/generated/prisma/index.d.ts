@@ -1193,10 +1193,11 @@ export namespace Prisma {
     name: string | null
     email: string | null
     emailVerified: boolean | null
+    admin: boolean | null
+    localBin: boolean | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    admin: boolean | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1204,10 +1205,11 @@ export namespace Prisma {
     name: string | null
     email: string | null
     emailVerified: boolean | null
+    admin: boolean | null
+    localBin: boolean | null
     image: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    admin: boolean | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1215,10 +1217,11 @@ export namespace Prisma {
     name: number
     email: number
     emailVerified: number
+    admin: number
+    localBin: number
     image: number
     createdAt: number
     updatedAt: number
-    admin: number
     _all: number
   }
 
@@ -1228,10 +1231,11 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
+    admin?: true
+    localBin?: true
     image?: true
     createdAt?: true
     updatedAt?: true
-    admin?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1239,10 +1243,11 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
+    admin?: true
+    localBin?: true
     image?: true
     createdAt?: true
     updatedAt?: true
-    admin?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1250,10 +1255,11 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
+    admin?: true
+    localBin?: true
     image?: true
     createdAt?: true
     updatedAt?: true
-    admin?: true
     _all?: true
   }
 
@@ -1334,10 +1340,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified: boolean
+    admin: boolean
+    localBin: boolean
     image: string | null
     createdAt: Date
     updatedAt: Date
-    admin: boolean
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1362,10 +1369,11 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    admin?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1376,10 +1384,11 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    admin?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1387,10 +1396,11 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    admin?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1398,13 +1408,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    admin?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt" | "admin", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "admin" | "localBin" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -1424,10 +1435,11 @@ export namespace Prisma {
       name: string
       email: string
       emailVerified: boolean
+      admin: boolean
+      localBin: boolean
       image: string | null
       createdAt: Date
       updatedAt: Date
-      admin: boolean
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -1857,10 +1869,11 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
+    readonly admin: FieldRef<"User", 'Boolean'>
+    readonly localBin: FieldRef<"User", 'Boolean'>
     readonly image: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
-    readonly admin: FieldRef<"User", 'Boolean'>
   }
     
 
@@ -5621,10 +5634,11 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     emailVerified: 'emailVerified',
+    admin: 'admin',
+    localBin: 'localBin',
     image: 'image',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    admin: 'admin'
+    updatedAt: 'updatedAt'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -5764,10 +5778,11 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
+    admin?: BoolFilter<"User"> | boolean
+    localBin?: BoolFilter<"User"> | boolean
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    admin?: BoolFilter<"User"> | boolean
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
   }
@@ -5777,10 +5792,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
+    admin?: SortOrder
+    localBin?: SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    admin?: SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
   }
@@ -5793,10 +5809,11 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
+    admin?: BoolFilter<"User"> | boolean
+    localBin?: BoolFilter<"User"> | boolean
     image?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    admin?: BoolFilter<"User"> | boolean
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
   }, "id" | "email">
@@ -5806,10 +5823,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
+    admin?: SortOrder
+    localBin?: SortOrder
     image?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    admin?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -5823,10 +5841,11 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    admin?: BoolWithAggregatesFilter<"User"> | boolean
+    localBin?: BoolWithAggregatesFilter<"User"> | boolean
     image?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    admin?: BoolWithAggregatesFilter<"User"> | boolean
   }
 
   export type SessionWhereInput = {
@@ -6056,10 +6075,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -6069,10 +6089,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6082,10 +6103,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -6095,10 +6117,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6108,10 +6131,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
   }
 
   export type UserUpdateManyMutationInput = {
@@ -6119,10 +6143,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -6130,10 +6155,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SessionCreateInput = {
@@ -6462,10 +6488,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
+    admin?: SortOrder
+    localBin?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    admin?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -6473,10 +6500,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
+    admin?: SortOrder
+    localBin?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    admin?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -6484,10 +6512,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
+    admin?: SortOrder
+    localBin?: SortOrder
     image?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    admin?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -7105,10 +7134,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     accounts?: AccountCreateNestedManyWithoutUserInput
   }
 
@@ -7117,10 +7147,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -7145,10 +7176,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUpdateManyWithoutUserNestedInput
   }
 
@@ -7157,10 +7189,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -7169,10 +7202,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
 
@@ -7181,10 +7215,11 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
+    admin?: boolean
+    localBin?: boolean
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    admin?: boolean
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -7209,10 +7244,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
 
@@ -7221,10 +7257,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    admin?: BoolFieldUpdateOperationsInput | boolean
+    localBin?: BoolFieldUpdateOperationsInput | boolean
     image?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    admin?: BoolFieldUpdateOperationsInput | boolean
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
 

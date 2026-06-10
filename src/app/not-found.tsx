@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { EmptyInputGroup } from '@/components/empty-content'
+import { EmptyInputGroup } from '@/components/(frontPage)/empty-content'
  
 export default function NotFound() {
   return (

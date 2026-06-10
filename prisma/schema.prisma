@@ -12,10 +12,11 @@ model User {
   name          String
   email         String    @unique
   emailVerified Boolean   @default(false)
+  admin         Boolean   @default(false)
+  localBin      Boolean   @default(false)
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  admin         Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]
 

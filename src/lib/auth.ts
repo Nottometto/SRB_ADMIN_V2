@@ -10,8 +10,12 @@ export const auth = betterAuth({
     }),
 
     user: {
-    additionalFields: {
-      admin: {
+        additionalFields: {
+            admin: {
+                type: "boolean",
+                defaultValue: false,
+            },
+            localBin: {
                 type: "boolean",
                 defaultValue: false,
             }

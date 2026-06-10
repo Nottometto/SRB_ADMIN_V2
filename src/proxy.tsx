@@ -11,13 +11,29 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    if (session.user.admin === true) {
-        return NextResponse.next();
+    const { pathname } = request.nextUrl;
+    const isAdmin = session.user.admin === true;
+    const isLocalBin = session.user.localBin === true;
+
+    if (pathname.startsWith("/admin")) {
+        if (isAdmin) {
+            return NextResponse.next();
+        }
+
+        return NextResponse.redirect(new URL("/", request.url));
     }
 
-    return NextResponse.redirect(new URL("/", request.url));
+    if (pathname.startsWith("/local")) {
+        if (isAdmin || isLocalBin) {
+            return NextResponse.next();
+        }
+
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
+    return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/local/:path*"],
 };
