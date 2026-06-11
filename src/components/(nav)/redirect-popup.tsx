@@ -6,30 +6,34 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Smartphone, LayoutDashboard, Database, ExternalLink } from "lucide-react"
+import { Smartphone, LayoutDashboard, Database, ExternalLink, LogOut } from "lucide-react"
 
-export function RedirectPopover({ isAdmin, isLocal, username, email }: { isAdmin: boolean, isLocal: boolean, username: string, email: string }) {
+export function RedirectPopover({ isAdmin, isLocal, username, email, signOut }: { isAdmin: boolean, isLocal: boolean, username: string, email: string, signOut: () => Promise<void> }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" className="gap-2">
             <Smartphone className="size-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-64 p-0">
+      <PopoverContent align="end" sideOffset={10} className="w-64 p-0">
 
-        <div className="p-2 border-b bg-muted/30">
-          <p className="text-sm">{username}</p>
-          <p className="text-xs text-muted-foreground">{email}</p>
+        <div className="border-b">
+          <div className="flex flex-col p-2 bg-muted/30">
+            <p className="text-sm">{username}</p>
+            <p className="text-xs text-muted-foreground">{email}</p>
+          </div>
+
+          <form action={signOut} className="bg-muted/30">
+              <Button type="submit" variant="ghost" className="text-destructive">
+                <LogOut className="size-4" />
+                Sign Out
+              </Button>
+          </form>
         </div>
 
+
         <div className="flex flex-col">
-          <Button asChild variant="ghost" className="justify-start gap-2">
-            <Link href="https://tp-cen-srb.github.io/RecycleTP/">
-              <ExternalLink className="size-4" />
-              Go to Mobile App
-            </Link>
-          </Button>
 
           {(isAdmin || isLocal) && (
             <Button asChild variant="ghost" className="justify-start gap-2">
@@ -48,6 +52,14 @@ export function RedirectPopover({ isAdmin, isLocal, username, email }: { isAdmin
               </Link>
             </Button>
           )}
+
+          <Button asChild variant="ghost" className="justify-start gap-2">
+            <Link href="https://tp-cen-srb.github.io/RecycleTP/">
+              <ExternalLink className="size-4" />
+              Go to Mobile App
+            </Link>
+          </Button>
+
           <div className="p-2"></div>
         </div>
       </PopoverContent>

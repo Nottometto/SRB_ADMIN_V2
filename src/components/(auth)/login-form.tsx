@@ -17,6 +17,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 
 import { getSignInEmail } from "@/lib/auth-server"
+import Link from "next/link"
 
 const loginSchema = z.object({
   email: z.email({ error: "Email is required." }),
@@ -37,6 +38,7 @@ export function LoginForm({
     formData.append("password", data.password)
     
     const result = await getSignInEmail(formData)
+
     if (result.error){
       setError("root", { message: result.error })
     }
@@ -67,12 +69,12 @@ export function LoginForm({
               <Field>
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <a
+                  <Link
                     href="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
                 <Input id="password" type="password" {...register("password")} />
                 {errors.password && (<p className="text-sm text-destructive">{errors.password.message}</p>)}
@@ -116,7 +118,7 @@ export function LoginForm({
                 </Button>
               </Field>
               <FieldDescription className="text-center">
-                Don&apos;t have an account? <a href="/signup">Sign up</a>
+                Don&apos;t have an account? <Link href="/signup">Sign up</Link>
               </FieldDescription>
             </FieldGroup>
           </form>
@@ -133,8 +135,8 @@ export function LoginForm({
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <Link href="#">Terms of Service</Link>{" "}
+        and <Link href="#">Privacy Policy</Link>.
       </FieldDescription>
     </div>
   )
