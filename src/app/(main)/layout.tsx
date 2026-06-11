@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider"
 import { ButtonSessions } from "@/components/(auth)/nav-buttons";
 import { Banner } from "@/components/(nav)/banner";
-import AdminSidebar from "@/components/(adminPage)/admin-sidebar";
+import AdminSidebar from "@/components/(adminPage)/(admin)/admin-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
