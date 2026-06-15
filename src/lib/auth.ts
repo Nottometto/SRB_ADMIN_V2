@@ -11,13 +11,13 @@ export const auth = betterAuth({
 
     user: {
         additionalFields: {
-            admin: {
-                type: "boolean",
-                defaultValue: false,
+            role: {
+                type: "string",
+                required: false,
             },
-            localBin: {
-                type: "boolean",
-                defaultValue: false,
+            school: {
+                type: "string",
+                required: false,
             }
         }
     },

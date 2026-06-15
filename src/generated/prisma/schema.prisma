@@ -7,18 +7,47 @@ datasource db {
   provider = "postgresql"
 }
 
+enum School {
+  ENG
+  BUS
+  ASC
+  DES
+  HSS
+  IIT
+  NIL
+}
+
+enum Role {
+  Student
+  Staff
+  Admin
+  Bin
+}
+
+enum Category {
+  MobileApp
+  Bins
+  Website
+  Others
+}
+
 model User {
-  id            String    @id
+  id            String  @id @default(cuid())
   name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
-  admin         Boolean   @default(false)
-  localBin      Boolean   @default(false)
+  email         String  @unique
+  emailVerified Boolean @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
+
+  school School?
+  role   Role?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  accounts  Account[]
+  sessions  Session[]
+
+  Member Member?
+  Bin    Bin?
 
   @@map("user")
 }
@@ -68,4 +97,58 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+//Custom ERD
+model Member {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  feedbacks Feedback[]
+  reports   Report[]
+
+  @@index([userId])
+  @@map("Member")
+}
+
+model Feedback {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  category Category?
+  message  String
+  images   String[]
+
+  createdAt DateTime @default(now())
+
+  @@index([memberId])
+  @@map("Feedback")
+}
+
+model Report {
+  id       String @id @default(cuid())
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  category   Category?
+  message    String
+  images     String[]
+  IsResolved Boolean   @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@map("Report")
+}
+
+model Bin {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("Bin")
 }

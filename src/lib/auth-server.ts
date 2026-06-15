@@ -10,6 +10,8 @@ const signupSchema = z.object({
   email: z.email(),
   password: z.string().min(8),
   confirmPassword: z.string(),
+  school: z.enum(["ENG", "BUS", "ASC", "DES", "HSS", "IIT", "NIL"]),
+  role: z.enum(["Student", "Staff"]),
 })
 
 const loginSchema = z.object({
@@ -31,7 +33,7 @@ export async function getSignUpEmail(formData:FormData){
         return { error: "Invalid data format." }
     }
 
-    const { name, email, password, confirmPassword} = parsedData.data
+    const { name, email, password, confirmPassword, school, role} = parsedData.data
     const existingUser = await prisma.user.findUnique({ where: { email } })
     if (existingUser) {
         return { error: "An account with this email already exists." }
@@ -44,6 +46,18 @@ export async function getSignUpEmail(formData:FormData){
         await auth.api.signUpEmail({
             body: { name, email, password },
             headers: await headers()
+        })
+
+        await prisma.user.update({
+            where: {email: email},
+            data: {
+                school: school,
+                role: role,
+                Member: {
+                    create: {
+                    }
+                }
+            }
         })
     }
     catch{
@@ -81,11 +95,11 @@ export async function getSignInEmail(formData:FormData){
         return { error: "Incorrect email or password." }
     }
 
-    if (existingUser.localBin === true) {
+    if (existingUser.role === "Bin") {
         redirect("/local/video");
     }
     
-    if (existingUser.admin === true) {
+    if (existingUser.role === "Admin") {
         redirect("/admin");
     }
 

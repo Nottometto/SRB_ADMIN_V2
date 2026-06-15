@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db"
 import { redis } from "@/lib/redis" 
 import type { User } from "@/generated/prisma/client"
 
-export type MemberSummary = Pick<User, 'id' | 'name' | 'email' | 'emailVerified' | 'createdAt' | 'admin' | 'localBin'>
+export type MemberSummary = Pick<User, 'id' | 'name' | 'email' | 'emailVerified' | 'createdAt' | 'school' | 'role'>
 
 export async function getAllMembersCount() {
   const cacheKey = 'all-members-count'
@@ -36,8 +36,8 @@ export async function getAllMembers(page: number, limit: number): Promise<Member
       email: true,
       emailVerified: true,
       createdAt: true,
-      admin: true,
-      localBin: true,
+      school: true,
+      role: true,
     },
   })
   await redis.set(cacheKey, JSON.stringify(members), { ex: 300 })

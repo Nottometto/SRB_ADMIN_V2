@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/db"
 import { redis } from "@/lib/redis" 
 import { revalidatePath } from "next/cache"
-import type { User } from "@/generated/prisma/client"
+import type { User, Role } from "@/generated/prisma/client"
 
 export async function updateUserRoles(formData: FormData) {
     const data = Object.fromEntries(formData.entries())
@@ -15,14 +15,13 @@ export async function updateUserRoles(formData: FormData) {
 
         if(key.startsWith("role_")){
             const userId = key.replace("role_", "")
-            const status = value as string
+            const status = value as Role
 
             updates.push(
                 prisma.user.update({
                     where: { id: userId },
                     data: {
-                        admin: status === "Admin",
-                        localBin: status === "Local",
+                        role: status
                     },
                 })
             )

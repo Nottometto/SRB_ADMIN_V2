@@ -12,8 +12,8 @@ export async function proxy(request: NextRequest) {
     }
 
     const { pathname } = request.nextUrl;
-    const isAdmin = session.user.admin === true;
-    const isLocalBin = session.user.localBin === true;
+    const isAdmin = session.user.role === "Admin";
+    const isBin = session.user.role === "Bin";
 
     if (pathname.startsWith("/admin")) {
         if (isAdmin) {
@@ -24,7 +24,7 @@ export async function proxy(request: NextRequest) {
     }
 
     if (pathname.startsWith("/local")) {
-        if (isAdmin || isLocalBin) {
+        if (isAdmin || isBin) {
             return NextResponse.next();
         }
 

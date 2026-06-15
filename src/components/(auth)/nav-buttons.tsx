@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { getSignOut } from "@/lib/auth-server";
 import { getSession } from "@/lib/auth-server";
 import { RedirectPopover } from "@/components/(nav)/redirect-popup"
-import { ModeToggle } from "@/components/(nav)/mode-toggle";
 export async function ButtonSessions(){
     const session = await getSession()
     
@@ -21,8 +20,7 @@ export async function ButtonSessions(){
     }
     return(
         <div className="text-sm flex items-center gap-2">
-            <ModeToggle />
-            <RedirectPopover isAdmin={session.user.admin} isLocal={session.user.localBin} username={session.user.name} email={session.user.email} signOut={getSignOut}/>
+            <RedirectPopover isAdmin={session.user.role === "Admin"} isBin={session.user.role === "Bin"} username={session.user.name} email={session.user.email} signOut={getSignOut}/>
         </div>
 
     )

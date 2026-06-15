@@ -125,9 +125,9 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   emailVerified: 'emailVerified',
-  admin: 'admin',
-  localBin: 'localBin',
   image: 'image',
+  school: 'school',
+  role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -168,6 +168,36 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MemberScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId'
+};
+
+exports.Prisma.FeedbackScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  category: 'category',
+  message: 'message',
+  images: 'images',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ReportScalarFieldEnum = {
+  id: 'id',
+  memberId: 'memberId',
+  category: 'category',
+  message: 'message',
+  images: 'images',
+  IsResolved: 'IsResolved',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BinScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -182,13 +212,39 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.School = exports.$Enums.School = {
+  ENG: 'ENG',
+  BUS: 'BUS',
+  ASC: 'ASC',
+  DES: 'DES',
+  HSS: 'HSS',
+  IIT: 'IIT',
+  NIL: 'NIL'
+};
 
+exports.Role = exports.$Enums.Role = {
+  Student: 'Student',
+  Staff: 'Staff',
+  Admin: 'Admin',
+  Bin: 'Bin'
+};
+
+exports.Category = exports.$Enums.Category = {
+  MobileApp: 'MobileApp',
+  Bins: 'Bins',
+  Website: 'Website',
+  Others: 'Others'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Member: 'Member',
+  Feedback: 'Feedback',
+  Report: 'Report',
+  Bin: 'Bin'
 };
 
 /**

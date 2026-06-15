@@ -61,14 +61,6 @@ export default function AdminDashboard(){
                     </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/admin/bins/analytics" className="flex items-center gap-3 hover:text-white">
-                      Analytics
-                    </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
               
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
@@ -115,6 +107,23 @@ export default function AdminDashboard(){
                 <SidebarMenuButton asChild>
                     <Link href="/admin/members/create" className="flex items-center gap-3 hover:text-white">
                       Create Account
+                    </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup>
+        <SidebarGroupLabel>AI Model</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                    <Link href="/admin/ai/images" className="flex items-center gap-3 hover:text-white">
+                      Images
                     </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

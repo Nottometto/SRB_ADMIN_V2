@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/popover"
 import { Smartphone, LayoutDashboard, Database, ExternalLink, LogOut } from "lucide-react"
 
-export function RedirectPopover({ isAdmin, isLocal, username, email, signOut }: { isAdmin: boolean, isLocal: boolean, username: string, email: string, signOut: () => Promise<void> }) {
+export function RedirectPopover({ isAdmin, isBin, username, email, signOut }: { isAdmin: boolean, isBin: boolean, username: string, email: string, signOut: () => Promise<void> }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -35,7 +35,7 @@ export function RedirectPopover({ isAdmin, isLocal, username, email, signOut }: 
 
         <div className="flex flex-col">
 
-          {(isAdmin || isLocal) && (
+          {(isAdmin || isBin) && (
             <Button asChild variant="ghost" className="justify-start gap-2">
               <Link href="/local/video">
                 <Database className="size-4" />
