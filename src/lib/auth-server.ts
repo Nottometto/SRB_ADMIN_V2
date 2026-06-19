@@ -10,7 +10,7 @@ const signupSchema = z.object({
   email: z.email(),
   password: z.string().min(8),
   confirmPassword: z.string(),
-  school: z.enum(["ENG", "BUS", "ASC", "DES", "HSS", "IIT", "NIL"]),
+  school: z.enum(["ENG", "BUS", "ASC", "DES", "HSS", "IIT"]),
   role: z.enum(["Student", "Staff"]),
 })
 
@@ -53,10 +53,6 @@ export async function getSignUpEmail(formData:FormData){
             data: {
                 school: school,
                 role: role,
-                Member: {
-                    create: {
-                    }
-                }
             }
         })
     }

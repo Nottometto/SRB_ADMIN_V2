@@ -83,7 +83,6 @@ export default function MemberComponent({
         setShowConfirm(false)
         setPendingPage(null)
     }
-    
 
     return(
     <form action={handleSubmit} onChange={function(){setHasChanges(true)}} className="flex flex-col h-full overflow-hidden">
@@ -122,42 +121,44 @@ export default function MemberComponent({
                     
                 </div>
 
-                <Button type="submit" variant="ghost">
-                    <PlusSquare className="size-5"/>
+                <Button type="button" variant="ghost" asChild>
+                    <Link href="/admin/members/create">
+                        <PlusSquare className="size-5"/>
+                    </Link>
                 </Button>
 
             </div>
         </header>
 
         {showConfirm && (
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-    <Alert className="w-full max-w-sm p-6 flex flex-col bg-background shadow-lg">
-        
-        {/* Top Row: Title on the left, X button on the top right */}
-        <div className="flex items-start justify-between">
-            <AlertTitle className="text-left text-lg font-semibold m-0">
-                Unsaved changes
-            </AlertTitle>
-            
-            <Button variant="ghost" size="icon-xs" onClick={closeAlert} className="shrink-0 ml-4">
-                <X className="size-4" />
-            </Button>
-        </div>
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                <Alert className="w-full max-w-sm p-6 flex flex-col bg-background shadow-lg">
+                    
+                    {/* Top Row: Title on the left, X button on the top right */}
+                    <div className="flex items-start justify-between">
+                        <AlertTitle className="text-left text-lg font-semibold m-0">
+                            Unsaved changes
+                        </AlertTitle>
+                        
+                        <Button variant="ghost" size="icon-xs" onClick={closeAlert} className="shrink-0 ml-4">
+                            <X className="size-4" />
+                        </Button>
+                    </div>
 
-        {/* Content: Description aligned to the left */}
-        <AlertDescription className="text-left text-sm text-muted-foreground mt-3 mb-6">
-            The table contains unsaved changes. Do you want to discard them?
-        </AlertDescription>
-        
-        {/* Bottom Row: Discard button pushed to the bottom right */}
-        <div className="flex justify-end mt-auto">
-            <Button variant="destructive" onClick={confirmDiscard}>
-                Discard changes
-            </Button>
-        </div>
-        
-    </Alert>
-</div>
+                    {/* Content: Description aligned to the left */}
+                    <AlertDescription className="text-left text-sm text-muted-foreground mt-3 mb-6">
+                        The table contains unsaved changes. Do you want to discard them?
+                    </AlertDescription>
+                    
+                    {/* Bottom Row: Discard button pushed to the bottom right */}
+                    <div className="flex justify-end mt-auto">
+                        <Button variant="destructive" onClick={confirmDiscard}>
+                            Discard changes
+                        </Button>
+                    </div>
+                    
+                </Alert>
+            </div>
         )}
 
         <div className="w-full bg-background border-b">
@@ -168,8 +169,8 @@ export default function MemberComponent({
                 <col style={{ width: '20%' }} />
                 <col style={{ width: '10%' }} />
                 <col style={{ width: '10%' }} />
-                <col style={{ width: '15%' }} />
-                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
                 <col style={{ width: '15%' }} />
             </colgroup>
             <TableHeader>
@@ -180,6 +181,7 @@ export default function MemberComponent({
                 <TableHead>Email Verified</TableHead>
                 <TableHead>Joined Date</TableHead>
                 <TableHead>Faculty</TableHead>
+                <TableHead>Points</TableHead>
                 <TableHead>Status</TableHead>
                 <TableHead className="text-center">See More</TableHead>
                 </TableRow>
@@ -195,8 +197,8 @@ export default function MemberComponent({
                 <col style={{ width: '20%' }} />
                 <col style={{ width: '10%' }} />
                 <col style={{ width: '10%' }} />
-                <col style={{ width: '15%' }} />
-                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
                 <col style={{ width: '15%' }} />
             </colgroup>
             <TableBody>
@@ -222,10 +224,13 @@ export default function MemberComponent({
                         <span className="text-xs text-muted-foreground">{member.school}</span>
                     </TableCell>
                     <TableCell>
+                        <span className="text-xs text-muted-foreground">{member.totalPoints}</span>
+                    </TableCell>
+                    <TableCell>
                         <span className="text-sm"><StatusSelector role={member.role ?? "Student"} name={`role_${member.id}`}/></span>
                     </TableCell>
                     <TableCell className="text-center">
-                        <Button variant="ghost" className="border-bg hover: bg-background/10" asChild><Link href="#">View More</Link></Button>
+                        <Button variant="ghost" className="border-bg hover: bg-background/10" asChild><Link href={`/admin/members/${member.id}`}>View More</Link></Button>
                     </TableCell>
                     </TableRow>
                 )

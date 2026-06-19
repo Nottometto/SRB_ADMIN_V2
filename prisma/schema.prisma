@@ -14,7 +14,6 @@ enum School {
   DES
   HSS
   IIT
-  NIL
 }
 
 enum Role {
@@ -31,6 +30,34 @@ enum Category {
   Others
 }
 
+enum SubmissionType {
+  Feedback
+  Reports
+}
+
+enum Status {
+  Received
+  Pending
+  Resolved
+}
+
+enum BinType {
+  General
+  Paper
+  Plastic
+  Metal
+  Glass
+  Ewaste
+}
+
+enum TransactionType {
+  BinEarned
+  QuestEarned
+  Penalty
+  Redeemed
+}
+
+
 model User {
   id            String  @id @default(cuid())
   name          String
@@ -38,16 +65,21 @@ model User {
   emailVerified Boolean @default(false)
   image         String?
 
-  school School?
-  role   Role?
+  school        School?
+  role          Role?
+  totalPoints  Int @default(0)
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  accounts  Account[]
-  sessions  Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  Member Member?
-  Bin    Bin?
+  Bin           Bin?
+
+  accounts      Account[]
+  sessions      Session[]
+  submission  Submission[]
+  questLogs    QuestLog[]
+  binUsages    BinUsage[]
+  transactions Transaction[]
 
   @@map("user")
 }
@@ -99,56 +131,101 @@ model Verification {
   @@map("verification")
 }
 
-//Custom ERD
-model Member {
-  id     String @id @default(cuid())
-  userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Submission {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  feedbacks Feedback[]
-  reports   Report[]
+  message String
+  image String?
+
+  type SubmissionType
+  status Status
+  category Category
 
   @@index([userId])
-  @@map("Member")
+  @@map("Submission")
 }
 
-model Feedback {
-  id       String @id @default(cuid())
-  memberId String
-  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+model Quest {
+  id String @id @default(cuid())
 
-  category Category?
-  message  String
-  images   String[]
+  awardedPoints Int
+  questName String
 
-  createdAt DateTime @default(now())
+  description String
+  image String?
 
-  @@index([memberId])
-  @@map("Feedback")
+  questLog QuestLog[]
+  @@map("Quest")
 }
 
-model Report {
-  id       String @id @default(cuid())
-  memberId String
-  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+model QuestLog {
+  id String @id @default(cuid())
+  questId String
+  userId String
+  quest Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  category   Category?
-  message    String
-  images     String[]
-  IsResolved Boolean   @default(false)
+  completedAt DateTime @default(now())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  transaction Transaction[]
 
-  @@index([memberId])
-  @@map("Report")
+  @@index([questId])
+  @@index([userId])
+  @@map("QuestLog")
 }
+
 
 model Bin {
-  id     String @id @default(cuid())
+  id String @id @default(cuid())
   userId String @unique
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  latitude Float
+  longitude Float
+  address String
+
+  binUsage BinUsage[]
 
   @@index([userId])
   @@map("Bin")
 }
+
+model BinUsage {
+  id String @id @default(cuid())
+  binId String
+  userId String
+  bin Bin @relation(fields: [binId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  weight Float
+  type BinType
+
+  transaction Transaction[]
+
+  @@index([binId])
+  @@index([userId])
+  @@map("BinUsage")
+}
+
+model Transaction {
+  id String @id @default(cuid())
+  userId String
+  binUsageId String?
+  questLogId String?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  binUsage BinUsage? @relation(fields: [binUsageId], references: [id], onDelete: Cascade)
+  questLog QuestLog? @relation(fields: [questLogId], references: [id], onDelete: Cascade)
+
+  pointsChanged Int
+  
+  createdAt DateTime @default(now())
+  transactionType TransactionType
+
+  @@index([userId])
+  @@index([binUsageId])
+  @@index([questLogId])
+  @@map("Transaction")
+}
+

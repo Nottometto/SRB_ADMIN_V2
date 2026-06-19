@@ -128,6 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   image: 'image',
   school: 'school',
   role: 'role',
+  totalPoints: 'totalPoints',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -168,34 +169,55 @@ exports.Prisma.VerificationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.MemberScalarFieldEnum = {
+exports.Prisma.SubmissionScalarFieldEnum = {
   id: 'id',
-  userId: 'userId'
+  userId: 'userId',
+  message: 'message',
+  image: 'image',
+  type: 'type',
+  status: 'status',
+  category: 'category'
 };
 
-exports.Prisma.FeedbackScalarFieldEnum = {
+exports.Prisma.QuestScalarFieldEnum = {
   id: 'id',
-  memberId: 'memberId',
-  category: 'category',
-  message: 'message',
-  images: 'images',
-  createdAt: 'createdAt'
+  awardedPoints: 'awardedPoints',
+  questName: 'questName',
+  description: 'description',
+  image: 'image'
 };
 
-exports.Prisma.ReportScalarFieldEnum = {
+exports.Prisma.QuestLogScalarFieldEnum = {
   id: 'id',
-  memberId: 'memberId',
-  category: 'category',
-  message: 'message',
-  images: 'images',
-  IsResolved: 'IsResolved',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  questId: 'questId',
+  userId: 'userId',
+  completedAt: 'completedAt'
 };
 
 exports.Prisma.BinScalarFieldEnum = {
   id: 'id',
-  userId: 'userId'
+  userId: 'userId',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  address: 'address'
+};
+
+exports.Prisma.BinUsageScalarFieldEnum = {
+  id: 'id',
+  binId: 'binId',
+  userId: 'userId',
+  weight: 'weight',
+  type: 'type'
+};
+
+exports.Prisma.TransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  binUsageId: 'binUsageId',
+  questLogId: 'questLogId',
+  pointsChanged: 'pointsChanged',
+  createdAt: 'createdAt',
+  transactionType: 'transactionType'
 };
 
 exports.Prisma.SortOrder = {
@@ -218,8 +240,7 @@ exports.School = exports.$Enums.School = {
   ASC: 'ASC',
   DES: 'DES',
   HSS: 'HSS',
-  IIT: 'IIT',
-  NIL: 'NIL'
+  IIT: 'IIT'
 };
 
 exports.Role = exports.$Enums.Role = {
@@ -229,6 +250,17 @@ exports.Role = exports.$Enums.Role = {
   Bin: 'Bin'
 };
 
+exports.SubmissionType = exports.$Enums.SubmissionType = {
+  Feedback: 'Feedback',
+  Reports: 'Reports'
+};
+
+exports.Status = exports.$Enums.Status = {
+  Received: 'Received',
+  Pending: 'Pending',
+  Resolved: 'Resolved'
+};
+
 exports.Category = exports.$Enums.Category = {
   MobileApp: 'MobileApp',
   Bins: 'Bins',
@@ -236,15 +268,33 @@ exports.Category = exports.$Enums.Category = {
   Others: 'Others'
 };
 
+exports.BinType = exports.$Enums.BinType = {
+  General: 'General',
+  Paper: 'Paper',
+  Plastic: 'Plastic',
+  Metal: 'Metal',
+  Glass: 'Glass',
+  Ewaste: 'Ewaste'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  BinEarned: 'BinEarned',
+  QuestEarned: 'QuestEarned',
+  Penalty: 'Penalty',
+  Redeemed: 'Redeemed'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
   Verification: 'Verification',
-  Member: 'Member',
-  Feedback: 'Feedback',
-  Report: 'Report',
-  Bin: 'Bin'
+  Submission: 'Submission',
+  Quest: 'Quest',
+  QuestLog: 'QuestLog',
+  Bin: 'Bin',
+  BinUsage: 'BinUsage',
+  Transaction: 'Transaction'
 };
 
 /**
