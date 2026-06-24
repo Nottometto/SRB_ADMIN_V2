@@ -41,7 +41,7 @@ export async function getAllMembers(page: number, limit: number): Promise<Member
       totalPoints: true,
     },
   })
-  await redis.set(cacheKey, JSON.stringify(members), { ex: 300 })
+  await redis.set(cacheKey, JSON.stringify(members), { ex: 60 })
 
   return members
 }

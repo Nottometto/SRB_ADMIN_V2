@@ -59,7 +59,7 @@ export async function getSignUpEmail(formData:FormData){
     catch{
         return { error: "Something went wrong when signing up, please try again later." }
     }
-    redirect("/login")
+    return { success: true }
 }
 
 

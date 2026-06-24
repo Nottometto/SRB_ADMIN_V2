@@ -40,3 +40,15 @@ export async function updateUserRoles(formData: FormData) {
         throw new Error("Update failed")
     }
 }
+
+export async function updateCreateUser(){
+    try {
+        const MemberPageCacheKey = `all-members-page-${1}-limit-${20}`
+        await redis.del(MemberPageCacheKey)
+        revalidatePath("/admin/members")
+
+    } catch (error) {
+        console.error("Failed to update user roles:", error)
+        throw new Error("Update failed")
+    }
+}

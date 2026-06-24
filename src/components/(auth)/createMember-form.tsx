@@ -7,9 +7,9 @@ import {
   FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { VerifiedIcon } from "lucide-react"
 import Image from "next/image"
 
 import {signupSchema, SignupFormValue} from "@/components/(auth)/signup-schema"
@@ -18,8 +18,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 
 import { useRouter } from "next/navigation"
 import { getSignUpEmail } from "@/lib/auth-server"
+import { updateCreateUser } from "@/lib/auth-member"
 
-export function SignupForm({
+export function CreateMemberForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
@@ -38,7 +39,8 @@ export function SignupForm({
         setError("root", { message: result.error })
       }
       if (result.success){
-        router.push("/login")
+        await updateCreateUser()
+        router.push("/admin/members")
       }
     }
 
@@ -49,9 +51,9 @@ export function SignupForm({
           <form className="p-6 md:p-8" onSubmit={handleSubmit(onSubmitRegister)}>
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Create your account</h1>
+                <h1 className="text-2xl font-bold">Create Member</h1>
                 <p className="text-sm text-balance text-muted-foreground">
-                  Enter your details below to create your account
+                  Enter details below to create account
                 </p>
               </div>
 
@@ -133,17 +135,13 @@ export function SignupForm({
                 <FieldDescription>
                   Must be at least 8 characters long.
                 </FieldDescription>
-              </Field>
+              </Field>  
               <Field>
                 <Button type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Signing up..." : "Create Account"}
+                  {isSubmitting ? "Creating..." : "Create Account"}
                 </Button>
                 {errors.root && (<p className="text-sm text-destructive text-center">{errors.root.message}</p>)}
               </Field>
-              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card"/>
-              <FieldDescription className="text-center">
-                Already have an account? <a href="/login">Sign in</a>
-              </FieldDescription>
             </FieldGroup>
           </form>
           <div className="relative hidden bg-muted md:block">
