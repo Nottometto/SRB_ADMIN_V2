@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-
-import { S3Client, GetObjectCommand, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { mongo } from '@/lib/mongodb';
 
 export async function GET() {
