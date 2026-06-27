@@ -167,11 +167,11 @@ export default function MemberComponent({
                 <col style={{ width: '5%' }} />
                 <col style={{ width: '10%' }} />
                 <col style={{ width: '20%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
                 <col style={{ width: '15%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
             </colgroup>
             <TableHeader>
                 <TableRow>
@@ -182,8 +182,7 @@ export default function MemberComponent({
                 <TableHead>Joined Date</TableHead>
                 <TableHead>Faculty</TableHead>
                 <TableHead>Points</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead className="text-center">See More</TableHead>
+                <TableHead className="text-center">Status</TableHead>
                 </TableRow>
             </TableHeader>
             </Table>
@@ -195,11 +194,11 @@ export default function MemberComponent({
                 <col style={{ width: '5%' }} />
                 <col style={{ width: '10%' }} />
                 <col style={{ width: '20%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
-                <col style={{ width: '10%' }} />
                 <col style={{ width: '15%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '15%' }} />
+                <col style={{ width: '10%' }} />
+                <col style={{ width: '10%' }} />
             </colgroup>
             <TableBody>
                 {members.map(function(member, index) {
@@ -226,11 +225,8 @@ export default function MemberComponent({
                     <TableCell>
                         <span className="text-xs text-muted-foreground">{member.totalPoints}</span>
                     </TableCell>
-                    <TableCell>
-                        <span className="text-sm"><StatusSelector role={member.role ?? "Student"} name={`role_${member.id}`}/></span>
-                    </TableCell>
                     <TableCell className="text-center">
-                        <Button variant="ghost" className="border-bg hover: bg-background/10" asChild><Link href={`/admin/members/${member.id}`}>View More</Link></Button>
+                        <span className="text-sm"><StatusSelector role={member.role ?? "Student"} name={`role_${member.id}`}/></span>
                     </TableCell>
                     </TableRow>
                 )

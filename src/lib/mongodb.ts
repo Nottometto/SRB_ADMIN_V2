@@ -1,13 +1,13 @@
 import 'dotenv/config'
-import { betterAuth } from "better-auth";
 import { MongoClient } from "mongodb";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
+declare global {
+  var mongoClient: MongoClient | undefined
+}
 
-const client = new MongoClient(process.env.MONGODB_URI!);
-const db = client.db();
+export const mongo = globalThis.mongoClient || new MongoClient(process.env.MONGODB_URI!)
 
-export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    client
-  }),
-}); 
+
+if (process.env.NODE_ENV !== 'production') {
+  globalThis.mongoClient = mongo
+}
+

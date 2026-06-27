@@ -102,14 +102,6 @@ export default function AdminDashboard(){
                     </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                    <Link href="/admin/members/create" className="flex items-center gap-3 hover:text-white">
-                      Create Account
-                    </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
               
             </SidebarMenu>
           </SidebarGroupContent>

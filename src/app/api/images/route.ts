@@ -1,18 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(process.env.MONGODB_URI!);
+import { S3Client, GetObjectCommand, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { mongo } from '@/lib/mongodb';
 
 export async function GET() {
   try {
-    await client.connect();
-    const db = client.db();
+    const db = mongo.db();
 
-    // Fetch data from a specific collection (e.g., 'users')
-    const users = await db.collection('users').find({}).toArray();
+    const images = await db.collection('images').find({}).toArray();
 
-    // Return the data as a JSON response
-    return NextResponse.json(users, { status: 200 });
+    return NextResponse.json(images, { status: 200 });
 
   } catch (error) {
     console.error("Database Error:", error);
@@ -22,18 +19,13 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. Grab the data you sent in the body of your request
     const body = await req.json(); 
 
-    // 2. Connect to the database
-    await client.connect();
-    const db = client.db();
+    const db = mongo.db();
 
-    // 3. Insert the data into your collection (using 'images' or 'users')
-    const result = await db.collection('users').insertOne(body);
+    const result = await db.collection('images').insertOne(body);
 
-    // 4. Return a success response
-    return NextResponse.json({ message: "Data saved successfully!", result }, { status: 201 });
+    return NextResponse.json({ message: "URL saved successfully!", result }, { status: 201 });
 
   } catch (error) {
     console.error("Database Error:", error);
